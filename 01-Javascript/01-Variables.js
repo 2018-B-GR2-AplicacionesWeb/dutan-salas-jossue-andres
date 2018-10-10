@@ -47,8 +47,8 @@ var jossueJSOn = {
 
 console.log(10+10);
 
-if (true){
+if (true){ //cuando no es true pero significa verdadero es truthy
     //si ++ cuando está en números, objetos, nombres...
 } else {
-    //no cuando está en 0, null, undefined
+    //no cuando está en 0, null, undefined, fallsy
 }
