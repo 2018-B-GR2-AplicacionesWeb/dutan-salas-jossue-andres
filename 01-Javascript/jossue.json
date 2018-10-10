@@ -1,0 +1,11 @@
+{
+  "llave":"valor",
+  "numero":1,
+  "casado": false,
+  "hijos": null
+  "casa": {
+    "llave":"valor"
+  }
+}
+
+//un arreglo de Json es también un Json válido
