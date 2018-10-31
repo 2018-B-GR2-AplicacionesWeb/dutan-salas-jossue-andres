@@ -43,8 +43,8 @@ appendFile(
     });
 
 // console.log(respuesta);
-
 // ['A', 'B', 'C']
+
 
 // 0-A.txt 'A'
 // 1-B.txt 'B'

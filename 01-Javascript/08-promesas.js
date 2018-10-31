@@ -110,3 +110,64 @@ PromesaAppend('07-ejemplo2.txt', ' Saludos')
             console.log('Mal', error)
         }
     );
+
+// Deber ejercicio
+
+// console.log(respuesta);
+// ['A', 'B', 'C']
+
+
+// 0-A.txt 'A'
+// 1-B.txt 'B'
+// 2-C.txt 'C'
+
+const respuesta = {
+    nombreArchivo: '0-A.txt',
+    contenidoArchivo: 'A',
+    error: undefined
+};
+
+// [respuesta, respuesta, ...]
+
+const promesaEjercicio = (arregloStrings) => {
+    return new Promise(
+        (resolve) => {
+            const arregloRespuestas = [];
+            arregloStrings
+                .forEach(
+                    (string, indice) => {
+                        const nombreArchivo = `${indice}-${string}.txt`;
+                        const contenidoArchio = string;
+
+                        fs.writeFile(
+                            nombreArchivo,
+                            contenidoArchio,
+                            (err) => {
+                                const respuesta = {
+                                    nombreArchivo: nombreArchivo,
+                                    contenidoArchivo: contenidoArchio,
+                                    error: err
+                                };
+                                arregloRespuestas.push(respuesta);
+                                const terminoElArreglo = arregloStrings.length === arregloRespuestas.length;
+                                if (terminoElArreglo) {
+                                    resolve(arregloRespuestas);
+                                }
+
+                            }
+                        )
+
+                    }
+                );
+        }
+    );
+
+};
+
+
+promesaEjercicio(['A', 'B', 'C'])
+    .then(
+        (respuestas)=>{
+            console.log(respuestas)
+        }
+    );
