@@ -64,44 +64,40 @@ promesa('07-texto.txt')
 //Ejercicio AppendFile en promesa
 
 const PromesaAppend = (nombreArchivo, contenidoArchivo) => {
+    // 1. leer archivo
+    // 2. concatenar contenido
+    // 3. creamos el archivo
     return new Promise(
         (resolve, reject) => {
             fs.readFile(
                 nombreArchivo,
-                'utf8',
-                (err, contenidoLeidoDelArchivo) => {
-                    if (err) {
+                'utf-8',
+                (error, contenidoLeido) => {
+                    if (error) {
+                        const contenido = contenidoArchivo;
                         fs.writeFile(
                             nombreArchivo,
-                            contenidoArchivo,
+                            contenido,
                             (err) => {
-                                if (err) {
-                                    reject(err);
-                                } else {
-                                    resolve(contenidoArchivo);
-                                }
-
+                                if (err) reject(err);
+                                else resolve(contenido)
                             }
                         )
                     } else {
+                        const contenido = contenidoLeido + contenidoArchivo;
                         fs.writeFile(
                             nombreArchivo,
-                            contenidoLeidoDelArchivo + contenidoArchivo,
+                            contenido,
                             (err) => {
-                                if (err) {
-                                    reject(err)
-                                }
-                                else {
-                                    resolve(contenidoLeidoDelArchivo + contenidoArchivo)
-                                }
+                                if (err) reject(err);
+                                else resolve(contenido);
                             }
                         )
                     }
-                }
-            )
-        }
-    );
+                });
+        })
 };
+
 
 PromesaAppend('07-ejemplo2.txt', ' Saludos')
     .then(
