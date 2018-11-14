@@ -45,7 +45,7 @@ observableNumeros$
     );
 
 
-const promesita = (funciona: boolean): Promise<string> => {
+const promesita = (funciona) => {
     return new Promise(
         (resolve, reject) => {
             if (funciona) {

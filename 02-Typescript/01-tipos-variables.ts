@@ -36,6 +36,8 @@ const adrian: { //interface
     }
 };
 
+console.log(adrian)
+
 function saludar(
     nombre: string,
     apellido?: string,

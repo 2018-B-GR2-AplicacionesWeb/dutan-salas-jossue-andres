@@ -1,0 +1,14 @@
+{
+  "Celulares": [
+    {
+      "idCelular": "1",
+      "descCelular": "Samsung J8",
+      "precioCelular": "250"
+    },
+    {
+      "idCelular": "2",
+      "descCelular": "Samsung S8+",
+      "precioCelular": "700"
+    }
+  ]
+}
