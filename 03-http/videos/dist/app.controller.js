@@ -10,24 +10,43 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
-const app_service_1 = require("./app.service");
 let AppController = class AppController {
-    constructor(appService) {
-        this.appService = appService;
+    constructor() {
+        this.nombre = 'Adrian';
     }
-    root() {
-        return this.appService.root();
+    saludar() {
+        return 'Hola mundo';
+    }
+    despedirse() {
+        return new Promise((resolve) => {
+            resolve("Adios");
+        });
+    }
+    tomar() {
+        return 'Estoy borracho';
     }
 };
 __decorate([
-    common_1.Get(),
+    common_1.Get('saludar'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", String)
-], AppController.prototype, "root", null);
+], AppController.prototype, "saludar", null);
+__decorate([
+    common_1.Get('despedirse'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "despedirse", null);
+__decorate([
+    common_1.Get('tomar'),
+    common_1.HttpCode(201),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", String)
+], AppController.prototype, "tomar", null);
 AppController = __decorate([
-    common_1.Controller(),
-    __metadata("design:paramtypes", [app_service_1.AppService])
+    common_1.Controller('Usuario')
 ], AppController);
 exports.AppController = AppController;
 //# sourceMappingURL=app.controller.js.map
