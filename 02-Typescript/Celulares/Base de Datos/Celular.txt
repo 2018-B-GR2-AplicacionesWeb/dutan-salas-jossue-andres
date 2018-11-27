@@ -1,5 +1,0 @@
-{
-  "idCelular": "2",
-  "descCelular": "Xiaomi Mi A17",
-  "precioCelular": "350"
-}
