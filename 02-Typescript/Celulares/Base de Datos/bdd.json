@@ -1,0 +1,16 @@
+{
+  "clientes": [
+    {
+      "idCliente": "1",
+      "nombreCliente": "Jossue"
+    }
+  ],
+  "celulares": [
+    {
+      "idCliente": "1",
+      "idCelular": "1",
+      "descCelular": "S8",
+      "precioCelular": 550
+    }
+  ]
+}
