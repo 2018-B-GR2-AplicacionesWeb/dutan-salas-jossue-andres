@@ -1,25 +1,23 @@
-import {Get, Controller, Request, HttpCode, HttpException, Query, Param, Res, Post} from '@nestjs/common';
+import {Get, Controller, Request, HttpCode, HttpException, Query, Param, Res, Post, Body} from '@nestjs/common';
 import {AppService} from './app.service';
 import {Response} from "supertest";
 import {resolve} from "url";
 import {of} from "../../../02-Typescript/node_modules/rxjs";
 import {Observable} from "rxjs/index";
+import {Usuario, UsuarioService} from "./usuario.service";
 
 // http://192.168.1.2:3000/Usuario/saludar  METODO -> GET
 
 @Controller('Usuario')
 export class AppController {
 
-    usuarios = [
-        {
-            nombre: 'Adrian',
-            id:1
-        },
-        {
-            nombre: 'Jossue',
-            id:2
-        },
-    ]
+    //Constructor NO ES un constructor NORMAL!!
+
+    constructor(
+        private readonly _usuarioService:UsuarioService,
+    ){
+
+    }
 
     nombre: string = 'Adrian';
 
@@ -63,9 +61,40 @@ export class AppController {
         //header
         response.render('inicio', {
             nombre: 'Adrian',
-            arreglo: [1, 2, 3, 4, 5],
-            arreglo2: this.usuarios
+            // arreglo: [1, 2, 3, 4, 5],
+            arreglo2: this._usuarioService.usuarios
         })
+
+    }
+    @Get('crear-usuario')
+    crearUsuario(@Res() response) {
+        //header
+        response.render('crear-usuario')
+    }
+
+    @Get('actualizar-usuario/:idUsuario')
+    actualizarUsuario(
+        @Param('idUsuario') idUsuario: string,
+        @Res() response
+    ) {
+        const usuarioAActualizar = this
+            ._usuarioService
+            .buscarPorId(Number(idUsuario));
+
+        response.render(
+            'crear-usuario', {
+                usuario: usuarioAActualizar
+            }
+        )
+    }
+
+    @Post('crear-usuario')
+    crearUsuarioFormulario(
+        @Body() usuario:Usuario,
+        @Res() response,
+    ) {
+        this._usuarioService.crear(usuario);
+        response.redirect('/Usuario/inicio')
 
     }
 
@@ -74,17 +103,8 @@ export class AppController {
         @Param('idUsuario') idUsuario, //es el nombre que se recibe de idUsuario
         @Res() response
     ){
-        const indiceUsuarioBuscar = this.usuarios
-            .findIndex(
-                (usuario)=> usuario.id === Number(idUsuario)
-            )
-
-        this.usuarios.splice(indiceUsuarioBuscar, 1);
-        response.render('inicio', {
-            nombre: 'Adrian',
-            arreglo: [1, 2, 3, 4, 5],
-            arreglo2: this.usuarios
-        })
+        this._usuarioService.borrar(Number(idUsuario));
+        response.redirect('/Usuario/inicio')
     }
 
 
