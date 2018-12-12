@@ -1,0 +1,71 @@
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+</style>
+
+
+<% var apellido = 'Eguez' %>
+
+<!-- con el = se visualiza-->
+<h1>Saludar <%= nombre %> <%= apellido %> </h1>
+<p>Parrafo</p>
+
+<a href="/Usuario/crear-usuario">
+    <button>Crear Usuario</button>
+</a>
+
+<h2>Arreglo</h2>
+
+<!-- ul -> unordered list-->
+<!-- ol -> ordered list-->
+
+<!--<ol>-->
+<!--&lt;!&ndash; li -> list items&ndash;&gt;-->
+<!--<li>a</li>-->
+<!--<li>b</li>-->
+<!--<li>c</li>-->
+<!--</ol>-->
+
+<!--<ul>-->
+    <!--<% //arreglo.forEach((number)=>{ %>-->
+    <!--<li><% //= number %></li>-->
+    <!--<% //}) %>-->
+<!--</ul>-->
+
+<table>
+    <!--tr -> table row-->
+    <tr>
+        <!--th = table header-->
+        <th>Nombre</th>
+        <th>Biografía</th>
+        <th>Acciones</th>
+    </tr>
+
+    <% arreglo2.forEach ((usuario) => { %>
+    <tr>
+        <td>
+            <%= usuario.nombre %>
+        </td>
+        <td>
+            <%= usuario.biografia %>
+        </td>
+        <td>
+            <form action="/Usuario/borrar/<%= usuario.id %>" method="post">
+                <!--<button type="button">Yo no</button>-->
+                <!--<button>Yo tambien</button>-->
+                <button type="submit">Eliminar</button>
+
+            </form>
+            <a href="/Usuario/actualizar-usuario/<%= usuario.id %>">
+                <button type="submit">Actualizar</button>
+            </a>
+        </td>
+    </tr>
+    <% }) %>
+
+</table>
