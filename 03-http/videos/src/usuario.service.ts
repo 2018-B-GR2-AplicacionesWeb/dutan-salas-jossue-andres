@@ -29,6 +29,19 @@ export class UsuarioService{
         return this.usuarios.find(u => u.id === idUsuario)
     }
 
+    buscarPorNombreOBiografia(busqueda:string): Usuario[]{
+        return this.usuarios.filter(
+            (usuario)=>{
+                //si la busqueda contiene algo del nombre
+                //si la busqueda contiene algo de la biografia
+                const tieneAlgoEnElNombre = usuario.nombre.includes(busqueda);
+
+                const tieneAlgoEnLaBio = usuario.biografia.includes(busqueda);
+                return tieneAlgoEnElNombre || tieneAlgoEnLaBio
+            }
+        )
+    }
+
     actualizar(idUsuario:number, nuevoUsuario: Usuario):Usuario{
         const indiceUsuarioBuscar = this.usuarios
             .findIndex(
