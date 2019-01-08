@@ -1,21 +1,44 @@
 // usuario entity
 
-import {Column, Entity, PrimaryColumn} from "typeorm";
+import {BeforeInsert, Column, Entity, OneToMany, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
+import {LibroEntity} from "../libro/libro.entity";
 
 @Entity('db_usuario')//nombre de la tabla
 export class UsuarioEntity{
-    @PrimaryColumn()
+    @PrimaryGeneratedColumn()
     id: number;
 
     @Column(
         {
             name: 'nombre_primero',
             type: 'varchar',
-            length: 50
+            length: 50,
+            default: 'nombre'
         }
     )
-    nombrePrimero:string;
+    nombre:string;
 
-    @Column()
+    @Column(
+        {
+            nullable:true,
+        }
+    )
     biografia:string;
+
+    //Trigger
+    @BeforeInsert()
+    antesDeInsertar(){
+        console.log('Ejecutándome antes de insertar')
+    }
+    @BeforeInsert()
+    verificarFuncion(){
+        console.log('Ejecutándome después del anterior insertar')
+    }
+
+    @OneToMany(
+        type => LibroEntity, //Tipo de Dato Un Usuario a muchos Libros[]
+        libro => libro.usuario //Campo de la Foreign Key
+    )
+    libros: LibroEntity[]
+
 }

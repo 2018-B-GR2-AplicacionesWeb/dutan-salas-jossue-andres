@@ -2,6 +2,8 @@
 
 import {Body, Controller, Get, Param, Post, Query, Res} from "@nestjs/common";
 import {Usuario, UsuarioService} from "./usuario.service";
+import {UsuarioEntity} from "./usuario-entity";
+import {Like} from "typeorm";
 
 @Controller('Usuario')
 export class UsuarioController {
@@ -13,7 +15,7 @@ export class UsuarioController {
     }
 
     @Get('inicio')
-    inicio(
+    async inicio(
         @Res() response,
         @Query('accion') accion: string,
         @Query('nombre') nombre: string,
@@ -36,14 +38,20 @@ export class UsuarioController {
             }
         }
 
-        let usuarios: Usuario[];
+        let usuarios: UsuarioEntity[];
 
         if (busqueda) {
-            usuarios = this._usuarioService
-                .buscarPorNombreOBiografia(busqueda);
+            const consulta = {
+                where:[
+                    {nombre: Like(`%${busqueda}%`)},
+                    {biografia: Like(`%${busqueda}%`)}
+                ]
+            };
+            usuarios = await this._usuarioService
+                .buscar(consulta);
         }
         else {
-            usuarios = this._usuarioService.usuarios
+            usuarios = await this._usuarioService.buscar();
         }
 
         response.render('inicio', {
@@ -62,11 +70,11 @@ export class UsuarioController {
     }
 
     @Get('actualizar-usuario/:idUsuario')
-    actualizarUsuario(
+    async actualizarUsuario(
         @Param('idUsuario') idUsuario: string,
         @Res() response
     ) {
-        const usuarioAActualizar = this
+        const usuarioAActualizar = await this
             ._usuarioService
             .buscarPorId(Number(idUsuario));
 
@@ -79,14 +87,14 @@ export class UsuarioController {
 
 
     @Post('actualizar-usuario/:idUsuario')
-    actualizarUsuarioFormulario(
+    async actualizarUsuarioFormulario(
         @Param('idUsuario') idUsuario: string,
         @Res() response,
         @Body() usuario: Usuario
     ) {
         usuario.id = +idUsuario;
 
-        this._usuarioService
+        await this._usuarioService
             .actualizar(+idUsuario, usuario);
 
         const parametrosConsulta = `?accion=actualizar&nombre=${usuario.nombre}`;
@@ -96,23 +104,24 @@ export class UsuarioController {
     }
 
     @Post('crear-usuario')
-    crearUsuarioFormulario(
+    async crearUsuarioFormulario(
         @Body() usuario: Usuario,
         @Res() response,
     ) {
-        this._usuarioService.crear(usuario);
+        await this._usuarioService.crear(usuario);
         const parametrosConsulta = `?accion=crear&nombre=${usuario.nombre}`;
         response.redirect('/Usuario/inicio' + parametrosConsulta)
 
     }
 
     @Post('borrar/:idUsuario')
-    borrar(
+    async borrar(
         @Param('idUsuario') idUsuario, //es el nombre que se recibe de idUsuario
         @Res() response
     ) {
-        const usuarioBorrado = this._usuarioService.borrar(Number(idUsuario));
-        const parametrosConsulta = `?accion=borrar&nombre=${usuarioBorrado.nombre}`;
+        const usuarioEncontrado = await this._usuarioService.buscarPorId(idUsuario);
+        await this._usuarioService.borrar(Number(idUsuario));
+        const parametrosConsulta = `?accion=borrar&nombre=${usuarioEncontrado.nombre}`;
 
         response.redirect('/Usuario/inicio' + parametrosConsulta);
     }
