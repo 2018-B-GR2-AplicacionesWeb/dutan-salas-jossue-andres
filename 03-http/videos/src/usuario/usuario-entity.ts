@@ -25,6 +25,12 @@ export class UsuarioEntity{
     )
     biografia:string;
 
+    @Column()
+    username:string;
+
+    @Column()
+    password:string;
+
     //Trigger
     @BeforeInsert()
     antesDeInsertar(){
