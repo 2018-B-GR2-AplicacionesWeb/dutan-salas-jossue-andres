@@ -12,7 +12,7 @@ import {PaginaEntity} from "./pagina/pagina.entity";
     imports: [
         TypeOrmModule.forRoot({
             type: 'mysql',
-            host: '172.31.103.225',
+            host: '172.31.103.208',
             port: 3306,
             username: 'jossue',
             password: 'Jossue_123',
