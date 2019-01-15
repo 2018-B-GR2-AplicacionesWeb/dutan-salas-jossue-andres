@@ -5,6 +5,8 @@ import {Options} from 'http-server';
 import {a} from "./mi-codigo";
 // const a = require('./mi-codigo').a;
 import * as session from 'express-session';
+import * as express from 'express';
+
 const FileStore = require('session-file-store')(session);
 
 // console.log(Options.contentType);
@@ -25,6 +27,14 @@ async function bootstrap() {
             }
         )
     )
+
+    // Configurar el servidor WEB
+
+    app.use(express.static('publico'));
+
+    // /bootstrap/css/bootstrap.css
+
+    // /bootstrap/js/bootstrap.jsapp.use(express.static('publico'));
 
     await app.listen(3000);
 }

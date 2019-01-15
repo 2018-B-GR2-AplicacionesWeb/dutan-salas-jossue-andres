@@ -1,0 +1,87 @@
+/*
+CSS
+
+BUSQUEDA {
+    PROPIEDAD: VALOR;
+}
+ETIQUETA (h1) {
+    PROPIEDAD: VERDE;
+}
+ID (titulo) {
+    PROPIEDAD: AZUL;
+}
+CLASE (amarillo) {
+    PROPIEDAD: AMARILLO;
+}
+
+<!-- <h1 id="titulo" class="amarillo">OMG</h1> se aplica la propiedad azul y background color verde-->
+
+BUSQUEDAS COMPLEJAS
+TODOS LOS PÁRRAFOS QUE TIENEN LA CLASE ROJO:
+
+p.rojo{}
+
+Todos los h1 con azul y verde:
+
+h1.azul.verde
+
+*/
+p {
+    background-color: aliceblue;
+}
+
+#titulo {
+    background-color: yellow;
+}
+
+.rojo {
+    background-color: red;
+}
+
+.azul {
+    background-color: blue;
+}
+
+p.rojo{
+    background-color: darkblue;
+}
+
+.amarillo {
+    background-color: yellow;
+}
+
+ul > li.verde >span {
+    font-size: 35px;
+}
+
+.verde{
+    color: green;
+}
+
+h1 + p {
+    color: brown;
+}
+
+@keyframes crecerCambiarColor {
+    0% {
+        background-color: red;
+        font-size: 16px;
+    }
+    25% {
+        background-color: yellow;
+        font-size: 20px;
+    }
+    50% {
+        background-color: blue;
+        font-size: 40px;
+    }
+    100% {
+        background-color: red;
+        font-size: 16px;
+    }
+}
+.animacion{
+    animation-name: crecerCambiarColor;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+}

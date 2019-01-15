@@ -105,4 +105,15 @@ export class AppController {
         }
 
     }
+
+    @Get ('logout')
+    logout(
+        @Res() response,
+        @Session() sesion,
+    ){
+        sesion.usuario = undefined;
+        sesion.destroy();
+        response.redirect('/login');
+    }
+
 }
