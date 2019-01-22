@@ -25,10 +25,18 @@ export class UsuarioEntity{
     )
     biografia:string;
 
-    @Column()
+    @Column(
+        {
+            nullable: true,
+        }
+    )
     username:string;
 
-    @Column()
+    @Column(
+        {
+            nullable: true,
+        }
+    )
     password:string;
 
     //Trigger

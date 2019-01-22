@@ -1,0 +1,12 @@
+.btn-espaciado{
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.quitar-subrayado:hover {
+    text-decoration: none;
+}
+
+.btn-buscar{
+    margin-top: 31px;
+}

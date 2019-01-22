@@ -1,111 +1,141 @@
-<style>
-    table, th, td {
-        border: 1px solid black;
-    }
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lista de Usuarios</title>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/bootstrap/css/animate.css">
+    <link rel="stylesheet" href="/css/mis-estilos.css">
+</head>
+<body>
+<div class="container">
+    <% var apellido = 'Dután' %>
 
-    table {
-        border-collapse: collapse;
-    }
-</style>
+    <!-- con el = se visualiza-->
+    <h1>Hola <%= nombre %> <%= apellido %>  </h1>
+    <h1>Lista de Usuarios</h1>
+    <p>Crear, Buscar, Eliminar y Actualizar Usuarios. Buscar por nombre o biografía</p>
 
-
-<% var apellido = 'Eguez' %>
-
-<!-- con el = se visualiza-->
-<h1>Saludar <%= nombre %> <%= apellido %> </h1>
-<p>Parrafo</p>
-
-<script>
-    function holaMundo(evento) {
-        console.log(evento)
-        evento.preventDefault()
-        console.log('Hola mundo')
-    }
-</script>
-<script>
-    function borrar(evento) {
-        console.log(evento)
-        const respuesta = confirm('¿Estás seguro?')
-        if(!respuesta){
+    <script>
+        function holaMundo(evento) {
+            console.log(evento)
             evento.preventDefault()
+            console.log('Hola mundo')
         }
-        console.log(respuesta)
-    }
-</script>
+    </script>
+    <script>
+        function borrar(evento) {
+            console.log(evento)
+            const respuesta = confirm('¿Estás seguro?')
+            if (!respuesta) {
+                evento.preventDefault()
+            }
+            console.log(respuesta)
+        }
+    </script>
 
 
-<a href="http://www.google.com"
-   onclick="holaMundo(event)">click</a>
+    <!--<a href="http://www.google.com"-->
+    <!--onclick="holaMundo(event)">click</a>-->
 
-<form action="/Usuario/inicio" method="get">
-    <div>
-        <label for="busqueda">Busqueda</label>
-        <input id="busqueda" type="text" name="busqueda">
+
+    <form action="/Usuario/inicio" method="get">
+        <div class="row">
+            <div class="col-sm-9">
+                <div class="form-group">
+                    <label for="busqueda">Busqueda</label>
+                    <input class="form-control" id="busqueda" type="text" name="busqueda">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <button type="submit"
+                        class="btn btn-outline-info btn-buscar btn-block">Buscar
+                </button>
+
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-sm-9"></div>
+        <div class="col-sm-3">
+            <a class="quitar-subrayado" href="/Usuario/crear-usuario">
+                <button
+                        class="btn btn-outline-success btn-espaciado btn-block">Crear Usuario
+                </button>
+            </a>
+        </div>
     </div>
 
-    <button type="submit">Buscar</button>
-</form>
+    <% const existeMensaje = typeof mensaje !== "undefined" ? true : false; %>
 
-<a href="/Usuario/crear-usuario">
-    <button>Crear Usuario</button>
-</a>
+    <% if(existeMensaje){ %>
 
-<% const existeMensaje = typeof mensaje !== "undefined" ? true : false;%>
+    <div class="animated fadeOut alert alert-<%= accion %>" role="alert">
+        <p>MENSAJE: <%= mensaje %></p>
+    </div>
 
-<%if(existeMensaje){%>
+    <% } %>
 
-<p>MENSAJE: <%= mensaje%></p>
+    <h2>Arreglo</h2>
 
-<%}%>
+    <!-- ul -> unordered list-->
+    <!-- ol -> ordered list-->
 
+    <!--<ol>-->
+    <!--&lt;!&ndash; li -> list items&ndash;&gt;-->
+    <!--<li>a</li>-->
+    <!--<li>b</li>-->
+    <!--<li>c</li>-->
+    <!--</ol>-->
 
-<h2>Arreglo</h2>
+    <!--<ul>-->
+    <!--<% //arreglo.forEach((number)=>{           %>-->
+    <!--<li><% //= number           %></li>-->
+    <!--<% //})           %>-->
+    <!--</ul>-->
 
-<!-- ul -> unordered list-->
-<!-- ol -> ordered list-->
+    <table class="table table-hover animated fadeInUp">
+        <caption>Lista de usuarios</caption>
+        <!--tr -> table row-->
+        <thead>
+        <tr>
+            <!--th = table header-->
+            <th width="20%">Nombre</th>
+            <th width="50%">Biografía</th>
+            <th width="30%">Acciones</th>
+        </tr>
+        </thead>
 
-<!--<ol>-->
-<!--&lt;!&ndash; li -> list items&ndash;&gt;-->
-<!--<li>a</li>-->
-<!--<li>b</li>-->
-<!--<li>c</li>-->
-<!--</ol>-->
+        <% arreglo2.forEach ((usuario) => { %>
+        <tr>
+            <td>
+                <%= usuario.nombre %>
+            </td>
+            <td>
+                <%= usuario.biografia %>
+            </td>
+            <td>
+                <form action="/Usuario/borrar/<%= usuario.id %>" method="post">
+                    <!--<button type="button">Yo no</button>-->
+                    <!--<button>Yo tambien</button>-->
+                    <button onclick="borrar(event)" type="submit"
+                            class="btn btn-espaciado btn-outline-danger btn-block">Eliminar
+                    </button>
 
-<!--<ul>-->
-    <!--<% //arreglo.forEach((number)=>{ %>-->
-    <!--<li><% //= number %></li>-->
-    <!--<% //}) %>-->
-<!--</ul>-->
+                </form>
+                <a class="quitar-subrayado" href="/Usuario/actualizar-usuario/<%= usuario.id %>">
+                    <button type="button"
+                            class="btn btn-espaciado btn-outline-info btn-block">Actualizar
+                    </button>
+                </a>
+            </td>
+        </tr>
+        <% }) %>
 
-<table>
-    <!--tr -> table row-->
-    <tr>
-        <!--th = table header-->
-        <th>Nombre</th>
-        <th>Biografía</th>
-        <th>Acciones</th>
-    </tr>
-
-    <% arreglo2.forEach ((usuario) => { %>
-    <tr>
-        <td>
-            <%= usuario.nombre %>
-        </td>
-        <td>
-            <%= usuario.biografia %>
-        </td>
-        <td>
-            <form action="/Usuario/borrar/<%= usuario.id %>" method="post">
-                <!--<button type="button">Yo no</button>-->
-                <!--<button>Yo tambien</button>-->
-                <button onclick="borrar(event)" type="submit">Eliminar</button>
-
-            </form>
-            <a href="/Usuario/actualizar-usuario/<%= usuario.id %>">
-                <button type="submit">Actualizar</button>
-            </a>
-        </td>
-    </tr>
-    <% }) %>
-
-</table>
+    </table>
+</div>
+</body>
+</html>

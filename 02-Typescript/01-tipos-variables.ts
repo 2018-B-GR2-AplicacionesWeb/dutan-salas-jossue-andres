@@ -1,6 +1,6 @@
 //01-tipos-variables.ts
 
-let nombre = 'Adrian';
+let nombre = 'Jossué';
 let edad: number | string = 21.2;
 let casado = false;
 
