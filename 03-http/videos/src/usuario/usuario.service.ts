@@ -127,4 +127,6 @@ export interface Usuario {
     id: number;
     nombre: string;
     biografia: string;
+    username?: string;
+    password?: string;
 }

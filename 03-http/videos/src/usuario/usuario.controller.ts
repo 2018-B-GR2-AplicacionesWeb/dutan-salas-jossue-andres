@@ -4,6 +4,8 @@ import {Body, Controller, Get, Param, Post, Query, Res} from "@nestjs/common";
 import {Usuario, UsuarioService} from "./usuario.service";
 import {UsuarioEntity} from "./usuario-entity";
 import {Like} from "typeorm";
+import {UsuarioCreateDto} from "./dto/usuario-create.dto";
+import {validate, ValidationError} from "class-validator";
 
 @Controller('Usuario')
 export class UsuarioController {
@@ -113,10 +115,29 @@ export class UsuarioController {
         @Body() usuario: Usuario,
         @Res() response,
     ) {
-        await this._usuarioService.crear(usuario);
-        const parametrosConsulta = `?accion=crear&nombre=${usuario.nombre}`;
-        response.redirect('/Usuario/inicio' + parametrosConsulta)
+        const usuarioValidado = new UsuarioCreateDto();
 
+        usuarioValidado.nombre = usuario.nombre;
+        usuarioValidado.biografia = usuario.biografia;
+        usuarioValidado.username = usuario.username;
+        usuarioValidado.password = usuario.password;
+
+        const errores: ValidationError[] = await validate(usuarioValidado);
+
+        const hayErrores = errores.length > 0;
+
+        if(hayErrores){
+
+            console.log(errores);
+            response.redirect('/Usuario/crear-usuario?error=Hay errores');
+
+        }else{
+            await this._usuarioService.crear(usuario);
+
+            const parametrosConsulta = `?accion=crear&nombre=${usuario.nombre}`;
+
+            response.redirect('/Usuario/inicio' + parametrosConsulta);
+        }
     }
 
     @Post('borrar/:idUsuario')
