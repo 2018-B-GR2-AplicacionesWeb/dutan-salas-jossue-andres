@@ -1,56 +1,30 @@
-<!doctype html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Lista de Usuarios</title>
-    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="/bootstrap/css/animate.css">
-    <link rel="stylesheet" href="/css/mis-estilos.css">
-</head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-    </div>
-</nav>
+<%- include('comunes/header',{titulo:'titulo'})%>
 <div class="container">
     <% var apellido = 'Dután' %>
 
     <!-- con el = se visualiza-->
     <h1>Hola <%= nombre %> <%= apellido %>  </h1>
+
+    <form action="">
+        <div class="form-group">
+            <label for="paises">Paises</label>
+            <select class="form-control" name="pais" id="paises">
+                <option value="1">Ecuador</option>
+                <option value="2">Argentina</option>
+                <option value="3">Japon</option>
+                <option value="4">Korea</option>
+                <option value="5">Francia</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="ciudades">Ciudades</label>
+            <select class="form-control" name="ciudad" id="ciudades">
+
+            </select>
+        </div>
+    </form>
+
+
     <h1>Lista de Usuarios</h1>
     <p>Crear, Buscar, Eliminar y Actualizar Usuarios. Buscar por nombre o biografía</p>
 
@@ -144,7 +118,7 @@
         </tr>
         </thead>
 
-        <% arreglo2.forEach ((usuario) => { %>
+        <% arreglo.forEach ((usuario) => { %>
         <tr>
             <td>
                 <%= usuario.nombre %>
@@ -173,9 +147,98 @@
     </table>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<%- include('comunes/librerias')%>
 
-</body>
-</html>
+<script>
+
+    const etiquetaSelectPaises = document
+        .getElementById('paises');
+
+    const etiquetaSelectCiudades = document
+        .getElementById('ciudades');
+
+    const ciudades = [
+        {
+            idPais: 1,
+            nombre: 'Quito',
+            id: 1
+        },
+        {
+            idPais: 2,
+            nombre: 'Buenos Aires',
+            id: 2
+        },
+        {
+            idPais: 3,
+            nombre: 'Tokyo',
+            id: 3
+        },
+        {
+            idPais: 4,
+            nombre: 'Paris',
+            id: 4
+        },
+        {
+            idPais: 5,
+            nombre: 'Sidney',
+            id: 5
+        }
+    ]
+
+
+    etiquetaSelectPaises.onchange = (evento) => {
+        const valorActualPais = etiquetaSelectPaises.value;
+        etiquetaSelectCiudades.disabled = false;
+
+        const ciudadesFiltradas = ciudades
+            .filter(
+                (ciudad) => {
+                    return ciudad.idPais === +valorActualPais;
+                }
+            );
+
+        const url = 'http://localhost:3000/Usuario';
+        $.get(
+            url + '/' + valorActualPais, // URL
+            (datos) => {  // Callback
+                const arregloCiudades = [datos];
+                matarHijos();
+                llenarCiudades(arregloCiudades);
+            }
+        )
+
+
+    }
+
+    function llenarCiudades(arregloCiudades) {
+        arregloCiudades
+            .forEach(
+                (ciudad) => {
+                    const nuevaOption = document.createElement('option');
+                    nuevaOption.value = ciudad.id;
+                    nuevaOption.innerText = ciudad.nombre;
+                    etiquetaSelectCiudades.appendChild(nuevaOption);
+                }
+            )
+    }
+
+    function matarHijos() { //AKA eliminarLasOpciones
+        while (etiquetaSelectCiudades.firstChild) {
+            etiquetaSelectCiudades.removeChild(etiquetaSelectCiudades.firstChild);
+        }
+    }
+
+
+    // Cuando se cambie el valor
+    // Tomar el valor actual del select
+
+    // Si yo ya escojo un pais
+    // cargo las ciudades de ese pais
+    // HTTP -> GET RESTFUL id
+    // Ciudades
+
+    // Cargarlas en el select de ciudades
+
+</script>
+
+<%- include('comunes/footer')%>

@@ -27,7 +27,7 @@ const adrian: { //interface
     fechaNacimiento: Date
     saludar?: (nombre: string) => string
 } = {//JSON
-    nombre: 'Adrian',
+    nombre: 'Jossué',
     edad: 21,
     casado: false,
     fechaNacimiento: new Date(),
@@ -61,5 +61,5 @@ interface UsuarioInterface {
 }
 
 const usuario = {
-    nombre:'Adrian'
+    nombre:'Jossué'
 };

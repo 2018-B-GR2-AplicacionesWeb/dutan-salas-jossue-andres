@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Grids</title>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Dropdown
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+<div class="container-fluid">
+    <h1>Grilla</h1>
+    <div class="row">
+        <!--col- + sm/md/lg + - + #Columnas-->
+        <div class="col-md-3">
+            <div class="card" style="width: 14rem;">
+                <img src="https://lh3.googleusercontent.com/_RS8nTX8HLPW-dDr374dEdQTaYn-7LI8HVVk0INaAmk7t8MYZKDssvGnep-GwPR94LJPxqq6UDnbm4tonioTpkl4Kqr6-k-670teZA=h128"
+                     class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Búsqueda</h5>
+                    <p class="card-text">No te pierdas nada. Estar al día de lo que pasa es más fácil que nunca con
+                        Google.</p>
+                    <a href="#" class="btn btn-primary">Empezar</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card" style="width: 14rem;">
+                <img src="https://lh3.googleusercontent.com/h2xmmkP-_RPM8kimxiZ0brUD_O16N5YsSrJA8srYewnR4Ay0fSevp51AKpIItoQY9ndhdGZFoi-wyAXNxE5mI_xQRVMdJtbAmStE1g=h128"
+                     class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Maps</h5>
+                    <p class="card-text">Navegación GPS, información sobre tráfico y transporte público, y lugares para
+                        descubrir cerca de ti</p>
+                    <a href="#" class="btn btn-primary">Empezar</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-3">
+            <div class="card" style="width: 14rem;">
+                <img src="https://lh3.googleusercontent.com/vNgpLTvnDUr6-QM8s4OuuESGDXs_brbGoPR-7vfwdxQI7M4MVFV0CC_Hil4qRDSp4P66ik85fdv09jKn89kDAJVknIbd6wkl0zGQJQ=h128"
+                     class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Traductor</h5>
+                    <p class="card-text">Habla, escanea, escribe o dibuja para traducir contenidos a más de 100
+                        idiomas.</p>
+                    <a href="#" class="btn btn-primary">Empezar</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-3">
+            <div class="card" style="width: 14rem;">
+                <img src="https://lh3.googleusercontent.com/7hNVq4eXYDqKikz_x6QUIN1x3ArrF3IzcaNWS6TQpna79BIWfNfnRviifT6hBugE7mYpKpiM7Ps7YN5XkGFmXaTyTKjiYsUoNquxGvQ=h128"
+
+                     class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Chrome</h5>
+                    <p class="card-text">Un navegador rápido, sencillo y seguro para todos tus dispositivos..</p>
+                    <a href="#" class="btn btn-primary">Empezar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/jquery.min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>

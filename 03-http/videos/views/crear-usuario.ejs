@@ -1,3 +1,6 @@
+<%- include('comunes/header',{titulo:'Crear Usuario'})%>
+
+<div>
 <% var creando = typeof usuario === "undefined" ? true : false;%>
 
 <h1> <%= creando ? 'Crear' : 'Actualizar' %> Usuario</h1>
@@ -47,3 +50,6 @@
 
     }
 </script>
+</div>
+<%- include('comunes/librerias')%>
+<%- include('comunes/footer')%>
